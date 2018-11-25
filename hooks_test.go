@@ -22,7 +22,7 @@ func TestBasic(t *testing.T) {
 		actual++
 	})
 
-	events.Call("test", CreateHookArgs(nil))
+	events.Call("test", nil)
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)
@@ -41,7 +41,7 @@ func TestMutipleHandlers(t *testing.T) {
 		actual++
 	})
 
-	events.Call("test", CreateHookArgs(nil))
+	events.Call("test", nil)
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)
@@ -57,9 +57,29 @@ func TestDelete(t *testing.T) {
 	})
 
 	events.Delete("test")
-	events.Call("test", CreateHookArgs(nil))
+	events.Call("test", nil)
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)
 	}
+}
+
+func TestArgs(t *testing.T) {
+	var actual interface{}
+	_ = actual
+	expected := 1
+
+	events.On("test", func(args IHookArgs) {
+		data := args.Data()
+
+		actual := data["testVal"]
+		if actual != expected {
+			msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
+			t.Error(msg)
+		}
+	})
+
+	args := make(map[string]interface{})
+	args["testVal"] = 1
+	events.Call("test", CreateHookArgs(args))
 }

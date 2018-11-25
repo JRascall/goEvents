@@ -27,9 +27,12 @@ func main() {
     hookSys := CreateHookSystem()
 
     hookSys.On("example", func(args IHookArgs) 
-
+        data := args.Data()
+        one := data["One"]
     })
 
-    hookSys.Call("example", CreateHookArgs(nil))
+    args := make(map[string]interface{})
+    args["One"] = 1
+    hookSys.Call("example", CreateHookArgs(args))
 }
 ```
