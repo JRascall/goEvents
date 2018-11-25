@@ -1,6 +1,9 @@
 # goHooks
 Simple event/hook driven library 
 
+[![Documentation](https://godoc.org/github.com/JRascall/goHooks?status.svg)](http://godoc.org/github.com/JRascall/goHooks)
+[![Go Report Card](https://goreportcard.com/badge/github.com/JRascall/goHooks)](https://goreportcard.com/report/github.com/JRascall/goHooks)
+
 ## Installation
 
 1. Download and install it:
