@@ -15,11 +15,13 @@ func CreateEventEmitter() IEventEmitter {
 	}
 }
 
+// On will register a callback to an eventname
 func (e *eventEmitter) On(name string, handler func(args IEventArgs)) {
 	lowerName := strings.ToLower(name)
 	e.listeners[lowerName] = append(e.listeners[lowerName], handler)
 }
 
+// Call will invoke an event by its name with the supplied args
 func (e *eventEmitter) Call(name string, args IEventArgs) {
 	lowerName := strings.ToLower(name)
 	if e.listeners[lowerName] != nil {
@@ -29,6 +31,7 @@ func (e *eventEmitter) Call(name string, args IEventArgs) {
 	}
 }
 
+// Delete will delete all handlers of the event name supplied
 func (e *eventEmitter) Delete(name string) {
 	lowerName := strings.ToLower(name)
 	if e.listeners[lowerName] != nil {
