@@ -1,4 +1,4 @@
-package events
+package hooks
 
 import (
 	"fmt"
@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-var events IEventEmitter
+var events IHookSys
 
 func TestMain(m *testing.M) {
-	events = CreateEventEmitter()
+	events = CreateHookSystem()
 	retCode := m.Run()
 	os.Exit(retCode)
 }
@@ -18,11 +18,11 @@ func TestBasic(t *testing.T) {
 	actual := 0
 	expected := 1
 
-	events.On("test", func(args IEventArgs) {
+	events.On("test", func(args IHookArgs) {
 		actual++
 	})
 
-	events.Call("test", CreateEventArgs(nil))
+	events.Call("test", CreateHookArgs(nil))
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)
@@ -33,15 +33,15 @@ func TestMutipleHandlers(t *testing.T) {
 	actual := 0
 	expected := 2
 
-	events.On("test", func(args IEventArgs) {
+	events.On("test", func(args IHookArgs) {
 		actual++
 	})
 
-	events.On("test", func(args IEventArgs) {
+	events.On("test", func(args IHookArgs) {
 		actual++
 	})
 
-	events.Call("test", CreateEventArgs(nil))
+	events.Call("test", CreateHookArgs(nil))
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)
@@ -52,12 +52,12 @@ func TestDelete(t *testing.T) {
 	actual := 0
 	expected := 0
 
-	events.On("test", func(args IEventArgs) {
+	events.On("test", func(args IHookArgs) {
 		actual++
 	})
 
 	events.Delete("test")
-	events.Call("test", CreateEventArgs(nil))
+	events.Call("test", CreateHookArgs(nil))
 	if actual != expected {
 		msg := fmt.Sprintf("Expected: %d, Actual: %d", expected, actual)
 		t.Error(msg)

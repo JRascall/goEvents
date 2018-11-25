@@ -1,4 +1,4 @@
-# goEvents
+# goHooks
 Simple event/hook driven library 
 
 ## Installation
@@ -6,13 +6,13 @@ Simple event/hook driven library
 1. Download and install it:
 
 ```sh
-go get -u github.com/JRascall/goEvents
+go get -u github.com/JRascall/goHooks
 ```
 
 2. Import it in your code:
 
 ```go
-import "github.com/JRascall/goEvents"
+import "github.com/JRascall/goHooks"
 ```
 
 ## Examples
@@ -20,16 +20,16 @@ import "github.com/JRascall/goEvents"
 ```go
 package main
 
-import "github.com/JRascall/goEvents"
+import "github.com/JRascall/goHooks"
 
 func main() {
 
-    eventEmitter := CreateEventEmitter()
+    hookSys := CreateHookSystem()
 
-    eventEmitter.On("example", func(args IEventArgs) 
+    hookSys.On("example", func(args IHookArgs) 
 
     })
 
-    eventEmitter.Call("example", CreateEventArgs(nil))
+    hookSys.Call("example", CreateHookArgs(nil))
 }
 ```
